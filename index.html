@@ -1,82 +1,405 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VELD</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: #0a0a0a;
-            color: #fff;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-        .container {
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-        h1 {
-            font-size: clamp(4rem, 15vw, 12rem);
-            font-weight: 800;
-            letter-spacing: -0.04em;
-            line-height: 0.9;
-            background: linear-gradient(135deg, #fff 0%, #888 50%, #fff 100%);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmer 4s ease-in-out infinite;
-        }
-        p {
-            margin-top: 1.5rem;
-            font-size: 1.1rem;
-            color: #666;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-        }
-        .grid {
-            position: fixed;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-            z-index: 0;
-        }
-        @keyframes shimmer {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-        .glow {
-            position: fixed;
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 0;
-            animation: pulse 6s ease-in-out infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
-            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VELD</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #080c09;
+    --bg2: #0e1510;
+    --green: #2d5a3d;
+    --green-light: #4a9160;
+    --green-dim: #1a3324;
+    --text: #e8ede9;
+    --text-dim: #7a8f7e;
+    --line: #1e2e21;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Noise overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.4;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 4rem;
+    border-bottom: 1px solid var(--line);
+    animation: fadeDown 0.8s ease both;
+  }
+
+  .logo {
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.35em;
+    color: var(--text);
+  }
+
+  .nav-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    border: 1px solid var(--line);
+    padding: 0.4rem 0.9rem;
+    border-radius: 2px;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 8rem 4rem 6rem;
+    max-width: 1100px;
+    animation: fadeUp 1s 0.2s ease both;
+  }
+
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    color: var(--green-light);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-label::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--green-light);
+  }
+
+  h1 {
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 2.5rem;
+  }
+
+  h1 span {
+    color: var(--green-light);
+  }
+
+  .hero-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+    max-width: 480px;
+    font-weight: 300;
+  }
+
+  /* Divider */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: var(--line);
+    margin: 0 4rem;
+    width: calc(100% - 8rem);
+  }
+
+  /* Stats */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin: 4rem 0;
+    animation: fadeUp 1s 0.4s ease both;
+  }
+
+  .stat {
+    padding: 3rem 4rem;
+    border-right: 1px solid var(--line);
+    transition: background 0.3s ease;
+  }
+
+  .stat:last-child { border-right: none; }
+
+  .stat:hover { background: var(--bg2); }
+
+  .stat-num {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.04em;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-num span { color: var(--green-light); }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--text-dim);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .stat-desc {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  /* Features */
+  .features {
+    padding: 4rem;
+    animation: fadeUp 1s 0.6s ease both;
+  }
+
+  .features-header {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--text-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 3rem;
+  }
+
+  .feature-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--line);
+    cursor: default;
+    transition: all 0.2s ease;
+  }
+
+  .feature-row:hover .feature-name { color: var(--green-light); }
+  .feature-row:hover .feature-arrow { opacity: 1; transform: translateX(4px); }
+
+  .feature-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    transition: color 0.2s ease;
+  }
+
+  .feature-desc {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    max-width: 340px;
+    text-align: right;
+    line-height: 1.6;
+  }
+
+  .feature-arrow {
+    font-size: 0.9rem;
+    color: var(--green-light);
+    opacity: 0;
+    transition: all 0.2s ease;
+    margin-left: 1rem;
+  }
+
+  /* CTA */
+  .cta-section {
+    padding: 6rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--line);
+    animation: fadeUp 1s 0.8s ease both;
+  }
+
+  .cta-left h2 {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    margin-bottom: 0.75rem;
+  }
+
+  .cta-left p {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--text-dim);
+  }
+
+  .waitlist-form {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--green-dim);
+    overflow: hidden;
+  }
+
+  .waitlist-form input {
+    background: var(--bg2);
+    border: none;
+    outline: none;
+    padding: 1rem 1.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--text);
+    width: 260px;
+    letter-spacing: 0.05em;
+  }
+
+  .waitlist-form input::placeholder { color: var(--text-dim); }
+
+  .waitlist-form button {
+    background: var(--green);
+    border: none;
+    padding: 1rem 1.5rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .waitlist-form button:hover { background: var(--green-light); }
+
+  /* Footer */
+  footer {
+    padding: 2rem 4rem;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.3em;
+    color: var(--text-dim);
+  }
+
+  .footer-copy {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    opacity: 0.5;
+    letter-spacing: 0.05em;
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    nav, .hero, .features, .cta-section, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .stats { grid-template-columns: 1fr; }
+    .stat { border-right: none; border-bottom: 1px solid var(--line); padding: 2rem 1.5rem; }
+    .cta-section { flex-direction: column; gap: 2.5rem; align-items: flex-start; }
+    .feature-desc { display: none; }
+    .waitlist-form input { width: 180px; }
+  }
+</style>
 </head>
 <body>
-    <div class="grid"></div>
-    <div class="glow"></div>
-    <div class="container">
-        <h1>VELD</h1>
-        <p>Coming Soon</p>
-    </div>
+
+<nav>
+  <div class="logo">VELD</div>
+  <div class="nav-tag">Infrastructure / Web3</div>
+</nav>
+
+<section class="hero">
+  <div class="hero-label">Decentralized Infrastructure</div>
+  <h1>Deploy<br>Without<br><span>Limits.</span></h1>
+  <p class="hero-sub">Infrastructure layer for decentralized app deployment. Spin up and scale dApps without managing the underlying stack.</p>
+</section>
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">40<span>ms</span></div>
+    <div class="stat-label">Avg. Deploy Time</div>
+    <div class="stat-desc">From push to live across any decentralized environment.</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">99<span>.9%</span></div>
+    <div class="stat-label">Uptime SLA</div>
+    <div class="stat-desc">Redundant nodes ensure your dApp stays live at all times.</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">12<span>+</span></div>
+    <div class="stat-label">Chain Support</div>
+    <div class="stat-desc">EVM-compatible and beyond. One platform, every chain.</div>
+  </div>
+</div>
+
+<section class="features">
+  <div class="features-header">// Core Infrastructure</div>
+
+  <div class="feature-row">
+    <div class="feature-name">Auto-Scaling Nodes</div>
+    <div class="feature-desc">Infrastructure that grows with your traffic — no manual provisioning.</div>
+    <div class="feature-arrow">→</div>
+  </div>
+  <div class="feature-row">
+    <div class="feature-name">Chain-Agnostic Routing</div>
+    <div class="feature-desc">Deploy once, route to any supported chain without reconfiguring.</div>
+    <div class="feature-arrow">→</div>
+  </div>
+  <div class="feature-row">
+    <div class="feature-name">Zero-Config Deployment</div>
+    <div class="feature-desc">Push your code. Veld handles the rest — no DevOps required.</div>
+    <div class="feature-arrow">→</div>
+  </div>
+  <div class="feature-row">
+    <div class="feature-name">Real-Time Monitoring</div>
+    <div class="feature-desc">Live telemetry across every node, every transaction, every call.</div>
+    <div class="feature-arrow">→</div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-left">
+    <h2>Early Access<br>Now Open.</h2>
+    <p>Join teams building the next layer of Web3.</p>
+  </div>
+  <div class="waitlist-form">
+    <input type="email" placeholder="your@email.com" />
+    <button>Join Waitlist</button>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">VELD</div>
+  <div class="footer-copy">© 2025 Veld Infrastructure. All rights reserved.</div>
+</footer>
+
 </body>
 </html>
