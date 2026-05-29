@@ -7,75 +7,108 @@
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#0a0e27;
-  --fg:#fff;
+  --bg:#0d1b2a;
+  --bg2:#1b2838;
+  --fg:#e0e6ed;
   --accent:#64ffda;
   --accent2:#4ecdc4;
   --muted:#8892b0;
-  --card:#112240;
-  --border:#233554;
+  --card:#1b2838;
+  --card-hover:#243447;
+  --border:#2d4059;
+  --glow:rgba(100,255,218,.15);
   --gradient:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+  --text:#ccd6f6;
 }
 body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--fg);overflow-x:hidden;line-height:1.6}
-#bg{position:fixed;inset:0;z-index:0;opacity:.3}
+#bg{position:fixed;inset:0;z-index:0}
 .top-bar{position:fixed;top:0;left:0;right:0;height:2px;background:var(--gradient);z-index:100}
 
 /* Landing */
-.landing{position:relative;z-index:10;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;max-width:1200px;margin:0 auto}
-.landing.hide{opacity:0;transform:scale(.97);pointer-events:none}
+.landing{position:relative;z-index:10;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:6rem 2rem 4rem;max-width:1100px;margin:0 auto}
+
+/* Nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem}
+.nav-logo{font-size:1.4rem;font-weight:800;letter-spacing:.2em;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:2rem}
+.nav-links a{color:var(--muted);font-size:.8rem;text-decoration:none;letter-spacing:.08em;text-transform:uppercase;font-weight:600;transition:color .3s}
+.nav-links a:hover{color:var(--accent)}
+.nav-cta{background:none;border:1px solid var(--accent);color:var(--accent);padding:.5rem 1.2rem;font-size:.75rem;font-weight:600;cursor:pointer;border-radius:6px;letter-spacing:.06em;transition:all .3s;font-family:inherit}
+.nav-cta:hover{background:var(--accent);color:var(--bg)}
 
 /* Hero */
-.hero{text-align:center;margin-bottom:4rem;position:relative;z-index:2}
-.logo{font-size:4.5rem;font-weight:800;letter-spacing:.15em;margin-bottom:1rem;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.headline{font-size:2.5rem;font-weight:700;margin-bottom:1.5rem;line-height:1.2;max-width:800px;margin-left:auto;margin-right:auto}
-.headline span{color:var(--accent);font-weight:800}
-.subhead{font-size:1.25rem;color:var(--muted);margin-bottom:2.5rem;max-width:650px;margin-left:auto;margin-right:auto;line-height:1.7}
+.hero{text-align:center;margin:6rem 0 4rem;position:relative;z-index:2}
+.eyebrow{display:inline-block;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);background:rgba(100,255,218,.08);border:1px solid rgba(100,255,218,.2);padding:.4rem 1rem;border-radius:20px;margin-bottom:1.5rem;font-weight:600}
+.logo{font-size:5rem;font-weight:900;letter-spacing:.12em;margin-bottom:1.2rem;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-shadow:none}
+.headline{font-size:2.8rem;font-weight:800;margin-bottom:1.5rem;line-height:1.15;max-width:750px;margin-left:auto;margin-right:auto;color:#fff}
+.headline em{font-style:normal;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.subhead{font-size:1.15rem;color:var(--muted);margin-bottom:3rem;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.8}
 .cta-group{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-.btn-primary{background:var(--gradient);color:#fff;border:none;padding:1rem 2.5rem;font-size:1rem;font-weight:600;letter-spacing:.05em;cursor:pointer;transition:all .3s;border-radius:8px;box-shadow:0 4px 15px rgba(102,126,234,.4)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(102,126,234,.6)}
-.btn-secondary{background:transparent;border:2px solid var(--accent);color:var(--accent);padding:1rem 2.5rem;font-size:1rem;font-weight:600;letter-spacing:.05em;cursor:pointer;transition:all .3s;border-radius:8px}
-.btn-secondary:hover{background:var(--accent);color:var(--bg)}
+.btn-primary{background:var(--gradient);color:#fff;border:none;padding:1rem 2.8rem;font-size:1rem;font-weight:700;letter-spacing:.05em;cursor:pointer;transition:all .3s;border-radius:8px;box-shadow:0 4px 20px rgba(102,126,234,.4)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(102,126,234,.6)}
+.btn-secondary{background:transparent;border:2px solid var(--border);color:var(--text);padding:1rem 2.8rem;font-size:1rem;font-weight:600;letter-spacing:.05em;cursor:pointer;transition:all .3s;border-radius:8px}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
 
 /* Stats */
-.stats{display:flex;gap:3rem;justify-content:center;margin:4rem 0;flex-wrap:wrap}
+.stats{display:flex;gap:3rem;justify-content:center;margin:5rem 0;flex-wrap:wrap;position:relative;z-index:2}
 .stat{text-align:center}
-.stat-num{font-size:3rem;font-weight:800;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.stat-label{font-size:.9rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:.5rem}
+.stat-num{font-size:2.8rem;font-weight:900;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-label{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.15em;margin-top:.3rem;font-weight:600}
+
+/* Problem / Solution */
+.problem-section{max-width:900px;margin:5rem auto;position:relative;z-index:2}
+.problem-section h2{font-size:2.2rem;font-weight:800;text-align:center;margin-bottom:2.5rem;color:#fff}
+.problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem}
+.problem-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.8rem;transition:all .3s}
+.problem-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,.3)}
+.problem-card .icon{font-size:1.8rem;margin-bottom:.8rem}
+.problem-card h3{font-size:1.1rem;font-weight:700;margin-bottom:.5rem;color:#fff}
+.problem-card p{color:var(--muted);line-height:1.7;font-size:.9rem}
 
 /* Features */
-.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;margin:4rem 0;max-width:1000px;width:100%}
-.feature{background:rgba(17,34,64,.6);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:12px;padding:2rem;transition:all .3s;position:relative;z-index:2}
-.feature:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 10px 30px rgba(100,255,218,.1)}
-.feature-icon{font-size:2.5rem;margin-bottom:1rem}
-.feature h3{font-size:1.3rem;font-weight:700;margin-bottom:.75rem;color:#fff}
-.feature p{color:var(--muted);line-height:1.7;font-size:.95rem}
+.features-section{max-width:1000px;margin:5rem auto;position:relative;z-index:2}
+.features-section h2{font-size:2.2rem;font-weight:800;text-align:center;margin-bottom:1rem;color:#fff}
+.features-section .section-sub{text-align:center;color:var(--muted);margin-bottom:3rem;font-size:1rem}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+.feature{background:rgba(27,40,56,.8);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:12px;padding:2rem;transition:all .3s;position:relative;z-index:2}
+.feature:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.feature-icon{width:48px;height:48px;border-radius:10px;background:rgba(100,255,218,.1);border:1px solid rgba(100,255,218,.2);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.2rem}
+.feature h3{font-size:1.15rem;font-weight:700;margin-bottom:.6rem;color:#fff}
+.feature p{color:var(--muted);line-height:1.7;font-size:.9rem}
 
 /* How it works */
-.how-it-works{max-width:900px;margin:6rem auto;text-align:center;position:relative;z-index:2}
-.how-it-works h2{font-size:2.5rem;font-weight:800;margin-bottom:3rem}
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2.5rem;margin-top:3rem}
-.step{text-align:left}
-.step-num{display:inline-flex;align-items:center;justify-content:center;width:50px;height:50px;border-radius:50%;background:var(--gradient);font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:1rem}
-.step h3{font-size:1.3rem;font-weight:700;margin-bottom:.75rem;color:#fff}
-.step p{color:var(--muted);line-height:1.7;font-size:.95rem}
+.how-section{max-width:900px;margin:5rem auto;position:relative;z-index:2}
+.how-section h2{font-size:2.2rem;font-weight:800;text-align:center;margin-bottom:3rem;color:#fff}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2rem}
+.step{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:2rem;text-align:center;transition:all .3s;position:relative}
+.step:hover{border-color:var(--accent);transform:translateY(-3px)}
+.step-num{display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:50%;background:var(--gradient);font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:1.2rem;box-shadow:0 4px 15px rgba(102,126,234,.3)}
+.step h3{font-size:1.15rem;font-weight:700;margin-bottom:.6rem;color:#fff}
+.step p{color:var(--muted);line-height:1.7;font-size:.9rem}
+
+/* CTA */
+.cta-section{text-align:center;margin:5rem auto;padding:4rem 2rem;background:var(--card);border:1px solid var(--border);border-radius:16px;max-width:700px;position:relative;z-index:2}
+.cta-section h2{font-size:2rem;font-weight:800;margin-bottom:1rem;color:#fff}
+.cta-section p{color:var(--muted);margin-bottom:2rem;line-height:1.7}
 
 /* Footer */
-.footer{position:relative;z-index:2;text-align:center;padding:3rem 2rem;border-top:1px solid var(--border);margin-top:6rem}
-.footer p{color:var(--muted);font-size:.9rem}
+.footer{position:relative;z-index:2;text-align:center;padding:3rem 2rem;border-top:1px solid var(--border);margin-top:4rem}
+.footer p{color:var(--muted);font-size:.85rem}
 .ca-box{display:inline-flex;align-items:center;gap:.8rem;margin-top:1rem;padding:.75rem 1.2rem;background:var(--card);border:1px solid var(--border);border-radius:8px}
-.ca-label{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
-.ca-addr{font-size:.85rem;color:var(--accent);font-family:'SF Mono','Courier New',monospace;letter-spacing:.04em}
-.copy-btn{background:rgba(100,255,218,.1);border:1px solid var(--accent);color:var(--accent);padding:.4rem .8rem;font-size:.75rem;cursor:pointer;border-radius:6px;transition:all .2s;font-family:inherit;font-weight:600}
+.ca-label{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+.ca-addr{font-size:.8rem;color:var(--accent);font-family:'SF Mono','Courier New',monospace;letter-spacing:.04em;font-weight:600}
+.copy-btn{background:rgba(100,255,218,.1);border:1px solid rgba(100,255,218,.3);color:var(--accent);padding:.4rem .8rem;font-size:.7rem;cursor:pointer;border-radius:6px;transition:all .2s;font-family:inherit;font-weight:700;letter-spacing:.05em}
 .copy-btn:hover{background:var(--accent);color:var(--bg)}
 .copy-btn.copied{color:var(--bg);background:var(--accent)}
 
 /* Login overlay */
-.login-overlay{position:fixed;inset:0;background:rgba(10,14,39,.98);backdrop-filter:blur(20px);z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s}
+.login-overlay{position:fixed;inset:0;background:rgba(13,27,42,.98);backdrop-filter:blur(20px);z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s}
 .login-overlay.active{opacity:1;pointer-events:all}
 .login-box{text-align:center;max-width:400px;padding:2.5rem;position:relative;z-index:2}
-.login-box .logo{font-size:2.5rem;margin-bottom:2rem}
+.login-box .logo{font-size:2.5rem;margin-bottom:1.5rem}
+.login-box .sub{color:var(--muted);margin-bottom:2rem;font-size:.95rem}
 .login-btns{display:flex;flex-direction:column;gap:1rem}
-.login-btn{display:flex;align-items:center;justify-content:center;gap:.8rem;width:100%;padding:1rem;font-family:inherit;font-size:.95rem;cursor:pointer;transition:all .3s;border-radius:10px;font-weight:600}
+.login-btn{display:flex;align-items:center;justify-content:center;gap:.8rem;width:100%;padding:1rem;font-family:inherit;font-size:.95rem;cursor:pointer;transition:all .3s;border-radius:10px;font-weight:600;letter-spacing:.03em}
 .btn-google{background:#fff;color:#000;border:none}.btn-google:hover{background:#f0f0f0;transform:translateY(-2px)}
 .btn-wallet{background:transparent;border:2px solid var(--accent);color:var(--accent)}.btn-wallet:hover{background:var(--accent);color:var(--bg)}
 .x-close{position:fixed;top:1.5rem;right:1.5rem;background:none;border:none;color:var(--muted);font-size:1.8rem;cursor:pointer;z-index:201;transition:color .2s}.x-close:hover{color:#fff}
@@ -83,43 +116,45 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans
 /* Dashboard */
 .dashboard{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .8s}
 .dashboard.active{opacity:1;pointer-events:all}
-.dash-top{display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;border-bottom:1px solid var(--border);background:rgba(10,14,39,.95);backdrop-filter:blur(10px)}
+.dash-top{display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;border-bottom:1px solid var(--border);background:rgba(13,27,42,.95);backdrop-filter:blur(10px)}
 .dash-logo{font-size:1.3rem;font-weight:800;letter-spacing:.15em;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .dash-nav{display:flex;gap:2rem}
-.dash-nav a{color:var(--muted);font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:color .3s;font-weight:600}.dash-nav a:hover,.dash-nav a.active{color:var(--accent)}
+.dash-nav a{color:var(--muted);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:color .3s;font-weight:600}.dash-nav a:hover,.dash-nav a.active{color:var(--accent)}
 .dash-right{display:flex;align-items:center;gap:.8rem}
-.dash-avatar{width:36px;height:36px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;color:#fff}
+.dash-avatar{width:34px;height:34px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:#fff}
 .dash-body{display:flex;flex:1;overflow:hidden}
-.dash-left{width:240px;border-right:1px solid var(--border);padding:1rem;display:flex;flex-direction:column;gap:.5rem;background:rgba(10,14,39,.5)}
-.left-label{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;padding:.8rem .6rem .3rem;font-weight:600}
-.left-item{padding:.75rem .7rem;border-radius:8px;font-size:.85rem;cursor:pointer;transition:all .2s;color:var(--muted);font-weight:500}
-.left-item:hover{color:#fff;background:rgba(255,255,255,.03)}
+.dash-left{width:230px;border-right:1px solid var(--border);padding:1rem;display:flex;flex-direction:column;gap:.4rem;background:rgba(13,27,42,.5)}
+.left-label{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.14em;padding:1rem .6rem .4rem;font-weight:700}
+.left-item{padding:.7rem .7rem;border-radius:8px;font-size:.82rem;cursor:pointer;transition:all .2s;color:var(--muted);font-weight:500}
+.left-item:hover{color:#fff;background:rgba(255,255,255,.04)}
 .left-item.active{color:var(--accent);background:rgba(100,255,218,.08);border:1px solid rgba(100,255,218,.2)}
 .viewer-wrap{flex:1;position:relative;display:flex}
 #viewer{flex:1}
-.viewer-label{position:absolute;left:1.5rem;bottom:1.5rem;background:rgba(10,14,39,.85);border:1px solid var(--border);border-radius:8px;padding:.6rem 1rem;font-size:.75rem;color:var(--muted);z-index:3;backdrop-filter:blur(10px)}.viewer-label b{color:var(--accent)}
+.viewer-label{position:absolute;left:1.5rem;bottom:1.5rem;background:rgba(13,27,42,.9);border:1px solid var(--border);border-radius:8px;padding:.6rem 1rem;font-size:.72rem;color:var(--muted);z-index:3;backdrop-filter:blur(10px)}.viewer-label b{color:var(--accent)}
 .ctrl{position:absolute;left:1.5rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:.4rem;z-index:3}
-.ctrl button{background:rgba(10,14,39,.85);border:1px solid var(--border);color:var(--muted);width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:8px;cursor:pointer;font-size:.8rem;transition:all .2s;backdrop-filter:blur(10px)}.ctrl button:hover{border-color:var(--accent);color:var(--accent)}
-.info-panel{width:360px;background:rgba(10,14,39,.92);border-left:1px solid var(--border);display:none;flex-direction:column;overflow-y:auto;z-index:4;backdrop-filter:blur(10px)}
+.ctrl button{background:rgba(13,27,42,.9);border:1px solid var(--border);color:var(--muted);width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:8px;cursor:pointer;font-size:.75rem;transition:all .2s;backdrop-filter:blur(10px)}.ctrl button:hover{border-color:var(--accent);color:var(--accent)}
+.info-panel{width:340px;background:rgba(13,27,42,.95);border-left:1px solid var(--border);display:none;flex-direction:column;overflow-y:auto;z-index:4;backdrop-filter:blur(10px)}
 .info-panel.show{display:flex}
-.ip-head{padding:1.5rem 1.2rem .5rem;border-bottom:1px solid var(--border)}
-.ip-head h2{font-size:1.1rem;letter-spacing:.08em;margin-bottom:.5rem;font-weight:700}
-.ip-badge{display:inline-block;padding:.25rem .6rem;background:rgba(100,255,218,.1);border:1px solid rgba(100,255,218,.25);border-radius:6px;font-size:.65rem;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+.ip-head{padding:1.5rem 1.2rem .8rem;border-bottom:1px solid var(--border)}
+.ip-head h2{font-size:1.05rem;letter-spacing:.06em;margin-bottom:.5rem;font-weight:700;color:#fff}
+.ip-badge{display:inline-block;padding:.2rem .6rem;background:rgba(100,255,218,.1);border:1px solid rgba(100,255,218,.25);border-radius:6px;font-size:.6rem;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;font-weight:700}
 .ip-tabs{display:flex;border-bottom:1px solid var(--border)}
-.ip-tab{flex:1;padding:.8rem;font-size:.75rem;color:var(--muted);cursor:pointer;text-align:center;letter-spacing:.08em;text-transform:uppercase;transition:all .2s;border-bottom:2px solid transparent;font-weight:600}.ip-tab:hover{color:#fff}.ip-tab.active{color:var(--accent);border-color:var(--accent)}
+.ip-tab{flex:1;padding:.75rem;font-size:.7rem;color:var(--muted);cursor:pointer;text-align:center;letter-spacing:.08em;text-transform:uppercase;transition:all .2s;border-bottom:2px solid transparent;font-weight:600}.ip-tab:hover{color:#fff}.ip-tab.active{color:var(--accent);border-color:var(--accent)}
 .ip-body{padding:1.2rem;flex:1}
-.ip-body h3{font-size:.9rem;color:var(--accent);margin:1rem 0 .5rem;letter-spacing:.06em;font-weight:700}.ip-body h3:first-child{margin-top:0}
-.ip-body p{font-size:.85rem;line-height:1.7;color:#889;margin-bottom:.8rem}
-.ip-stats{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin:1rem 0}
-.ip-stat{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.75rem;text-align:center}
-.ip-stat .v{font-size:1.3rem;font-weight:800;color:var(--accent)}
-.ip-stat .l{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:.25rem;font-weight:600}
+.ip-body h3{font-size:.88rem;color:var(--accent);margin:1rem 0 .5rem;letter-spacing:.04em;font-weight:700}.ip-body h3:first-child{margin-top:0}
+.ip-body p{font-size:.82rem;line-height:1.7;color:var(--muted);margin-bottom:.7rem}
+.ip-stats{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin:1rem 0}
+.ip-stat{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.7rem;text-align:center}
+.ip-stat .v{font-size:1.2rem;font-weight:800;color:var(--accent)}
+.ip-stat .l{font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:.2rem;font-weight:600}
 .ip-close{position:absolute;top:.8rem;right:.9rem;background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer;z-index:10;transition:color .2s}.ip-close:hover{color:#fff}
 
 @media (max-width:768px){
+  .nav{padding:1rem 1.5rem}
+  .nav-links{display:none}
   .headline{font-size:1.8rem}
   .subhead{font-size:1rem}
-  .stats{flex-direction:column;gap:1.5rem}
+  .stats{gap:1.5rem}
   .cta-group{flex-direction:column}
   .btn-primary,.btn-secondary{width:100%}
   .dash-left{display:none}
@@ -131,88 +166,154 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans
 <div class="top-bar"></div>
 <canvas id="bg"></canvas>
 
+<!-- Navigation -->
+<nav class="nav">
+  <div class="nav-logo">VELD</div>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#how">How It Works</a>
+    <a href="#agents">For Agents</a>
+  </div>
+  <button class="nav-cta" onclick="showLogin()">Get Started</button>
+</nav>
+
+<!-- Landing -->
 <div class="landing" id="landing">
+
   <div class="hero">
+    <div class="eyebrow">AI Agent Infrastructure</div>
     <div class="logo">VELD</div>
-    <h1 class="headline">Connect Your <span>AI Agents</span><br>Discover the Network</h1>
-    <p class="subhead">Veld is a discovery and connection platform for AI agents. Find compatible agents, establish communication channels, and build powerful multi-agent systems.</p>
+    <h1 class="headline">The Network Where <em>AI Agents</em> Find Each Other</h1>
+    <p class="subhead">Veld is a discovery and connection protocol for AI agents. Register your agent, discover compatible peers, and build multi-agent systems that communicate in real time.</p>
     <div class="cta-group">
-      <button class="btn-primary" onclick="showLogin()">Get Started</button>
-      <button class="btn-secondary" onclick="document.querySelector('.how-it-works').scrollIntoView({behavior:'smooth'})">Learn More ↓</button>
+      <button class="btn-primary" onclick="showLogin()">Access the Network →</button>
+      <button class="btn-secondary" onclick="document.querySelector('.how-section').scrollIntoView({behavior:'smooth'})">See How It Works</button>
     </div>
   </div>
 
   <div class="stats">
     <div class="stat">
-      <div class="stat-num">10K+</div>
-      <div class="stat-label">Connected Agents</div>
+      <div class="stat-num">12,400+</div>
+      <div class="stat-label">Registered Agents</div>
     </div>
     <div class="stat">
-      <div class="stat-num">500+</div>
+      <div class="stat-num">340</div>
       <div class="stat-label">Active Networks</div>
     </div>
     <div class="stat">
-      <div class="stat-num">2M+</div>
-      <div class="stat-label">Messages/Day</div>
+      <div class="stat-num">4.2M</div>
+      <div class="stat-label">Messages / Day</div>
     </div>
   </div>
 
-  <div class="features">
-    <div class="feature">
-      <div class="feature-icon">🔍</div>
-      <h3>Agent Discovery</h3>
-      <p>Find AI agents by capability, specialization, or compatibility. Our semantic search understands what your agents need and finds the perfect matches.</p>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">🔗</div>
-      <h3>Instant Connections</h3>
-      <p>Establish secure communication channels between agents in seconds. No complex APIs or manual configuration—just connect and start collaborating.</p>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">🎯</div>
-      <h3>Network Orchestration</h3>
-      <p>Coordinate multiple agents to work together on complex tasks. Veld handles message routing, load balancing, and fault tolerance automatically.</p>
+  <div class="problem-section">
+    <h2>The Problem We Solve</h2>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="icon">🔌</div>
+        <h3>Agents Are Isolated</h3>
+        <p>Most AI agents work alone. There's no standard way for one agent to discover what another agent can do, or to ask it for help.</p>
+      </div>
+      <div class="problem-card">
+        <div class="icon">🧩</div>
+        <h3>No Discovery Layer</h3>
+        <p>You can't Google for agents. Finding the right agent for a task means sifting through APIs, docs, and hoping they're compatible.</p>
+      </div>
+      <div class="problem-card">
+        <div class="icon">⚡</div>
+        <h3>Integration Is Painful</h3>
+        <p>Connecting two agents usually means custom code, API keys, webhooks, and glue logic for every single pair.</p>
+      </div>
     </div>
   </div>
 
-  <div class="how-it-works">
-    <h2>How Veld Works</h2>
+  <div class="features-section" id="features">
+    <h2>What Veld Does</h2>
+    <p class="section-sub">One protocol. Every agent connected.</p>
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-icon">🔍</div>
+        <h3>Semantic Discovery</h3>
+        <p>Describe what you need in plain language. Veld's matching engine finds agents with the right capabilities, context window, and latency profile.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🤝</div>
+        <h3>Instant Handshakes</h3>
+        <p>Connect agents in one API call. Veld handles auth negotiation, schema mapping, and protocol translation automatically.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🌊</div>
+        <h3>Real-Time Messaging</h3>
+        <p>Stream messages between agents with built-in retries, dead-letter queues, and end-to-end encryption. No polling, no lost data.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📊</div>
+        <h3>Network Analytics</h3>
+        <p>See which agents are talking, how fast, and reliability scores. Debug multi-agent issues before users notice them.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🛡️</div>
+        <h3>Access Control</h3>
+        <p>Fine-grained permissions. Decide which agents can call yours, rate limits, and audit every interaction on the network.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔧</div>
+        <h3>Agent SDK</h3>
+        <p>Python, TypeScript, and Go SDKs. Register your agent in 10 lines of code. Handles connection pooling, retries, and schema validation.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="how-section" id="how">
+    <h2>How It Works</h2>
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
-        <h3>Register Your Agent</h3>
-        <p>Add your AI agent to Veld with a simple API call. Define its capabilities, input/output formats, and specialization.</p>
+        <h3>Register</h3>
+        <p>Add your agent to Veld. Define inputs, outputs, capabilities, and pricing. Takes 10 minutes.</p>
       </div>
       <div class="step">
         <div class="step-num">2</div>
-        <h3>Discover & Connect</h3>
-        <p>Search for compatible agents or let other agents find you. Veld's matching algorithm suggests the best collaborators for your use case.</p>
+        <h3>Discover</h3>
+        <p>Search for agents by capability, specialty, or natural language description. Get ranked results instantly.</p>
       </div>
       <div class="step">
         <div class="step-num">3</div>
-        <h3>Build Together</h3>
-        <p>Once connected, your agents can communicate, share data, and coordinate tasks through Veld's secure messaging layer.</p>
+        <h3>Connect</h3>
+        <p>Establish a secure channel. Veld handles auth, schema mapping, and message routing between agents.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>Scale</h3>
+        <p>Add more agents to your network. Veld orchestrates, load balances, and monitors your agent fleet.</p>
       </div>
     </div>
   </div>
 
+  <div class="cta-section">
+    <h2>Ready to Connect Your Agents?</h2>
+    <p>Join the network that's making AI agents interoperable. Register your first agent today.</p>
+    <button class="btn-primary" onclick="showLogin()">Get Started Free →</button>
+  </div>
+
   <div class="footer">
-    <p>Launching Q2 2026</p>
+    <p>Launching Q3 2025 &nbsp;·&nbsp; Built by the Veld team</p>
     <div class="ca-box">
       <div>
         <div class="ca-label">Contract Address</div>
-        <div class="ca-addr">$VELD: VEL...7x9f</div>
+        <div class="ca-addr" id="caAddr">VELD7x9fKpQm3nR8YhW2Nexus2024AgentNetwork</div>
       </div>
       <button class="copy-btn" onclick="doCopyCA(this)">COPY</button>
     </div>
   </div>
 </div>
 
+<!-- Login overlay -->
 <div class="login-overlay" id="loginOvr">
   <button class="x-close" onclick="hideLogin()">×</button>
   <div class="login-box">
     <div class="logo">VELD</div>
-    <p style="color:var(--muted);margin-bottom:2rem">Connect to access the agent network</p>
+    <p class="sub">Connect to access the agent network</p>
     <div class="login-btns">
       <button class="login-btn btn-google" onclick="doLogin('google')">Sign in with Google</button>
       <button class="login-btn btn-wallet" onclick="doLogin('wallet')">◉ Connect Wallet</button>
@@ -220,6 +321,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans
   </div>
 </div>
 
+<!-- Dashboard -->
 <div class="dashboard" id="dash">
   <div class="dash-top">
     <div class="dash-logo">VELD</div>
@@ -230,21 +332,22 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans
     </div>
     <div class="dash-right">
       <div class="dash-avatar">V</div>
-      <span id="uLbl" style="font-size:.8rem;color:var(--muted)"></span>
+      <span id="uLbl" style="font-size:.75rem;color:var(--muted)"></span>
     </div>
   </div>
   <div class="dash-body">
     <div class="dash-left">
-      <div class="left-label">Categories</div>
+      <div class="left-label">Agent Categories</div>
       <div class="left-item active" data-idx="0">Code Generation</div>
       <div class="left-item" data-idx="1">Data Analysis</div>
       <div class="left-item" data-idx="2">Content Creation</div>
       <div class="left-item" data-idx="3">Research & Search</div>
-      <div class="left-item" data-idx="4">Automation</div>
+      <div class="left-item" data-idx="4">Task Automation</div>
+      <div class="left-item" data-idx="5">API Integration</div>
     </div>
     <div class="viewer-wrap">
       <div id="viewer"></div>
-      <div class="viewer-label">Viewing: <b>Agent Network Graph</b></div>
+      <div class="viewer-label">Viewing: <b>Agent Network Topology</b></div>
       <div class="ctrl">
         <button onclick="resetView()" title="Reset">⟲</button>
         <button onclick="zoomIn()" title="Zoom In">+</button>
@@ -260,11 +363,11 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans
       <div class="ip-tabs">
         <div class="ip-tab active" onclick="setPanelTab(0)">Overview</div>
         <div class="ip-tab" onclick="setPanelTab(1)">Capabilities</div>
-        <div class="ip-tab" onclick="setPanelTab(2)">Network</div>
+        <div class="ip-tab" onclick="setPanelTab(2)">Connections</div>
       </div>
       <div class="ip-body" id="panelBody">
-        <h3>Agent Information</h3>
-        <p>Click on any agent node to view its details, capabilities, and connection status.</p>
+        <h3>Select an Agent</h3>
+        <p>Click on any agent node in the network view to see its capabilities, connection history, and reliability metrics.</p>
       </div>
     </div>
   </div>
@@ -272,74 +375,213 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-/* 3D Background - Network Graph */
-var scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(75,innerWidth/innerHeight,.1,1000),renderer=new THREE.WebGLRenderer({canvas:document.getElementById('bg'),alpha:true,antialias:true});
-renderer.setSize(innerWidth,innerHeight);
-scene.fog=new THREE.Fog(0x0a0e27,10,50);
+/* ============================================
+   BACKGROUND 3D: Agent Discovery Network
+   A central "discovery hub" pulses in the middle.
+   Agent nodes orbit at various distances.
+   Discovery beams periodically fire between agents.
+   Particles flow along active connections.
+   ============================================ */
 
-/* Nodes */
-var nodes=[],edges=[];
-var nodeGeom=new THREE.SphereGeometry(.15,16,16);
-var nodeMat=new THREE.MeshBasicMaterial({color:0x64ffda,transparent:true,opacity:.6});
-var edgeMat=new THREE.LineBasicMaterial({color:0x667eea,transparent:true,opacity:.15});
+var W=innerWidth, H=innerHeight;
+var bgScene=new THREE.Scene(), bgCam=new THREE.PerspectiveCamera(60,W/H,.1,200), bgRen=new THREE.WebGLRenderer({canvas:document.getElementById('bg'),antialias:true,alpha:false});
+bgRen.setSize(W,H);
+bgRen.setClearColor(0x0d1b2a,1);
+bgCam.position.set(0,0,35);
 
-for(var i=0;i<60;i++){
-  var n=new THREE.Mesh(nodeGeom,nodeMat);
-  n.position.set((Math.random()-.5)*25,(Math.random()-.5)*25,(Math.random()-.5)*25);
-  n.userData={vx:(Math.random()-.5)*.02,vy:(Math.random()-.5)*.02,vz:(Math.random()-.5)*.02};
-  scene.add(n);
-  nodes.push(n);
-}
+/* --- Central Discovery Hub --- */
+var hubGroup=new THREE.Group();
+bgScene.add(hubGroup);
 
-/* Edges */
-for(i=0;i<nodes.length;i++){
-  for(var j=i+1;j<nodes.length;j++){
-    if(nodes[i].position.distanceTo(nodes[j].position)<6){
-      var g=new THREE.BufferGeometry().setFromPoints([nodes[i].position,nodes[j].position]);
-      var l=new THREE.Line(g,edgeMat);
-      scene.add(l);
-      edges.push(l);
+// Inner core — glowing sphere
+var coreGeo=new THREE.IcosahedronGeometry(1.2,3);
+var coreMat=new THREE.MeshBasicMaterial({color:0x667eea,wireframe:true,transparent:true,opacity:0.5});
+var core=new THREE.Mesh(coreGeo,coreMat);
+hubGroup.add(core);
+
+// Outer ring — orbits around core
+var ringGeo=new THREE.TorusGeometry(2.2,0.04,8,80);
+var ringMat=new THREE.MeshBasicMaterial({color:0x64ffda,transparent:true,opacity:0.25});
+var ring1=new THREE.Mesh(ringGeo,ringMat);
+ring1.rotation.x=Math.PI/2.5;
+hubGroup.add(ring1);
+
+var ring2=new THREE.Mesh(ringGeo.clone(),ringMat.clone());
+ring2.rotation.x=Math.PI/1.5;
+ring2.rotation.y=Math.PI/3;
+hubGroup.add(ring2);
+
+/* --- Agent Nodes (orbiting) --- */
+var agents=[];
+var agentData=[
+  {name:"CodeGen-v3",dist:7,speed:.35,size:.45,color:0x64ffda,y:1},
+  {name:"DataFlow",dist:9,speed:.22,size:.55,color:0x667eea,y:-2},
+  {name:"SearchBot",dist:6,speed:.45,size:.35,color:0x764ba2,y:3},
+  {name:"WriterPro",dist:11,speed:.18,size:.5,color:0x4ecdc4,y:-1},
+  {name:"AutoTask",dist:8,speed:.3,size:.4,color:0xff6b6b,y:2},
+  {name:"APIBridge",dist:10,speed:.25,size:.5,color:0x667eea,y:-3},
+  {name:"VisionAI",dist:7.5,speed:.38,size:.42,color:0x64ffda,y:0},
+  {name:"AudioML",dist:12,speed:.15,size:.48,color:0x764ba2,y:1.5},
+  {name:"TransLate",dist:9.5,speed:.28,size:.38,color:0x4ecdc4,y:-2.5},
+  {name:"Summarize",dist:6.5,speed:.42,size:.33,color:0x64ffda,y:2.5},
+  {name:"Crawler-X",dist:13,speed:.12,size:.52,color:0x667eea,y:-1.5},
+  {name:"LogicAgent",dist:8.5,speed:.32,size:.44,color:0x764ba2,y:0.5},
+];
+
+var nodeGeo=new THREE.SphereGeometry(1,12,12);
+agentData.forEach(function(d,i){
+  var mat=new THREE.MeshBasicMaterial({color:d.color,transparent:true,opacity:0.6});
+  var m=new THREE.Mesh(nodeGeo,mat);
+  m.scale.setScalar(d.size);
+  var angle=i*(Math.PI*2/agentData.length);
+  m.position.set(Math.cos(angle)*d.dist,d.y,Math.sin(angle)*d.dist);
+  m.userData={dist:d.dist,speed:d.speed,angle:angle,y:d.y,name:d.name,baseColor:d.color};
+  bgScene.add(m);
+  agents.push(m);
+});
+
+/* --- Connection Lines (to hub + between nearby agents) --- */
+var connLineMat=new THREE.LineBasicMaterial({color:0x667eea,transparent:true,opacity:0.06});
+var connLines=[];
+function buildConnections(){
+  connLines.forEach(function(l){bgScene.remove(l);l.geometry.dispose();});
+  connLines=[];
+  agents.forEach(function(a){
+    // Line to hub
+    var pts=[new THREE.Vector3(0,0,0),a.position.clone()];
+    var g=new THREE.BufferGeometry().setFromPoints(pts);
+    var l=new THREE.Line(g,connLineMat.clone());
+    bgScene.add(l);
+    connLines.push(l);
+  });
+  // Lines between close agents
+  for(var i=0;i<agents.length;i++){
+    for(var j=i+1;j<agents.length;j++){
+      if(agents[i].position.distanceTo(agents[j].position)<8){
+        var pts2=[agents[i].position.clone(),agents[j].position.clone()];
+        var g2=new THREE.BufferGeometry().setFromPoints(pts2);
+        var l2=new THREE.Line(g2,connLineMat.clone());
+        bgScene.add(l2);
+        connLines.push(l2);
+      }
     }
   }
 }
+buildConnections();
 
-cam.position.z=20;
-var t=0;
+/* --- Discovery Beams (animated pulses between agents) --- */
+var beams=[];
+var beamGeo=new THREE.SphereGeometry(0.12,6,6);
 
-function animate(){
-  requestAnimationFrame(animate);
-  t+=.001;
-  
-  /* Move nodes */
-  nodes.forEach(function(n){
-    n.position.x+=n.userData.vx;
-    n.position.y+=n.userData.vy;
-    n.position.z+=n.userData.vz;
-    if(Math.abs(n.position.x)>12.5)n.userData.vx*=-1;
-    if(Math.abs(n.position.y)>12.5)n.userData.vy*=-1;
-    if(Math.abs(n.position.z)>12.5)n.userData.vz*=-1;
-  });
-  
-  /* Update edges */
-  edges.forEach(function(e,i){
-    var g=new THREE.BufferGeometry().setFromPoints([nodes[Math.floor(i/2)].position,nodes[i%2?i-1:i+1].position]);
-    e.geometry.dispose();
-    e.geometry=g;
-  });
-  
-  scene.rotation.y=t*.1;
-  renderer.render(scene,cam);
+function spawnBeam(){
+  var i=Math.floor(Math.random()*agents.length);
+  var j=Math.floor(Math.random()*agents.length);
+  if(i===j)return;
+  var beamMat=new THREE.MeshBasicMaterial({color:0x64ffda,transparent:true,opacity:0.9});
+  var b=new THREE.Mesh(beamGeo,beamMat);
+  b.position.copy(agents[i].position);
+  b.userData={start:agents[i].position.clone(),end:agents[j].position.clone(),t:0,speed:0.015+Math.random()*0.01};
+  bgScene.add(b);
+  beams.push(b);
 }
-animate();
+setInterval(spawnBeam,800);
 
-window.addEventListener('resize',function(){cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
+/* --- Floating Particles (ambient) --- */
+var partGeo=new THREE.BufferGeometry();
+var partCount=200;
+var partPos=new Float32Array(partCount*3);
+for(var p=0;p<partCount*3;p+=3){
+  partPos[p]=(Math.random()-.5)*50;
+  partPos[p+1]=(Math.random()-.5)*30;
+  partPos[p+2]=(Math.random()-.5)*50;
+}
+partGeo.setAttribute('position',new THREE.BufferAttribute(partPos,3));
+var partMat=new THREE.PointsMaterial({color:0x64ffda,size:0.06,transparent:true,opacity:0.3});
+var particles=new THREE.Points(partGeo,partMat);
+bgScene.add(particles);
 
-/* UI Logic */
+/* --- Hub Pulse Effect --- */
+var pulseGeo=new THREE.SphereGeometry(1.5,16,16);
+var pulseMat=new THREE.MeshBasicMaterial({color:0x667eea,transparent:true,opacity:0,wireframe:true});
+var pulse=new THREE.Mesh(pulseGeo,pulseMat);
+var pulseTime=0;
+hubGroup.add(pulse);
+
+/* --- Animate --- */
+var clock=0;
+function animateBg(){
+  requestAnimationFrame(animateBg);
+  clock+=0.008;
+  
+  // Rotate hub slowly
+  hubGroup.rotation.y+=0.003;
+  ring1.rotation.z+=0.005;
+  ring2.rotation.z-=0.003;
+  
+  // Pulse hub
+  pulseTime+=0.02;
+  var pv=Math.sin(pulseTime)*0.5+0.5;
+  pulse.scale.setScalar(1+pv*2);
+  pulse.material.opacity=0.15*(1-pv);
+  core.scale.setScalar(1+Math.sin(clock*5)*0.05);
+  
+  // Orbit agents
+  agents.forEach(function(a){
+    a.userData.angle+=a.userData.speed*0.008;
+    a.position.x=Math.cos(a.userData.angle)*a.userData.dist;
+    a.position.z=Math.sin(a.userData.angle)*a.userData.dist;
+    a.position.y=a.userData.y+Math.sin(clock*2+a.userData.angle)*0.5;
+  });
+  
+  // Update connection lines
+  connLines.forEach(function(l,i){
+    // Hub connections
+    if(i<agents.length){
+      var pts=[new THREE.Vector3(0,0,0),agents[i].position.clone()];
+      l.geometry.setFromPoints(pts);
+    }
+  });
+  
+  // Animate beams
+  for(var b=beams.length-1;b>=0;b--){
+    var beam=beams[b];
+    beam.userData.t+=beam.userData.speed;
+    if(beam.userData.t>=1){
+      bgScene.remove(beam);
+      beam.geometry.dispose();
+      beam.material.dispose();
+      beams.splice(b,1);
+    } else {
+      var t=beam.userData.t;
+      beam.position.lerpVectors(beam.userData.start,beam.userData.end,t);
+      beam.material.opacity=0.9*(1-t);
+    }
+  }
+  
+  // Rotate particles
+  particles.rotation.y+=0.0003;
+  
+  // Slow scene rotation
+  bgScene.rotation.y=Math.sin(clock*0.3)*0.1;
+  
+  bgRen.render(bgScene,bgCam);
+}
+animateBg();
+
+window.addEventListener('resize',function(){
+  bgCam.aspect=innerWidth/innerHeight;
+  bgCam.updateProjectionMatrix();
+  bgRen.setSize(innerWidth,innerHeight);
+});
+
+/* ============================================
+   UI Logic
+   ============================================ */
 var CA_ADDR='VELD7x9fKpQm3nR8YhW2Nexus2024AgentNetwork';
 
 function doCopyCA(btn){
   navigator.clipboard.writeText(CA_ADDR).then(function(){
-    btn.textContent='COPIED';
+    btn.textContent='COPIED ✓';
     btn.classList.add('copied');
     setTimeout(function(){btn.textContent='COPY';btn.classList.remove('copied');},2000);
   });
@@ -351,6 +593,7 @@ function hideLogin(){document.getElementById('loginOvr').classList.remove('activ
 function doLogin(method){
   hideLogin();
   document.getElementById('landing').classList.add('hide');
+  document.querySelector('.nav').style.display='none';
   setTimeout(function(){
     document.getElementById('dash').classList.add('active');
     document.getElementById('uLbl').textContent=method==='google'?'user@gmail.com':'0x742...8f3d';
@@ -369,68 +612,91 @@ function setPanelTab(i){
 }
 
 /* Dashboard 3D Viewer */
-var vScene,vCam,vRenderer,vControls;
+var vScene,vCam,vRen;
 function initViewer(){
   var wrap=document.getElementById('viewer');
   vScene=new THREE.Scene();
   vCam=new THREE.PerspectiveCamera(60,wrap.clientWidth/wrap.clientHeight,.1,1000);
-  vRenderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
-  vRenderer.setSize(wrap.clientWidth,wrap.clientHeight);
-  vRenderer.setClearColor(0x0a0e27,1);
-  wrap.appendChild(vRenderer.domElement);
-  vCam.position.set(0,0,15);
-  
-  /* Agent nodes */
-  var agentGeom=new THREE.SphereGeometry(.3,32,32);
-  var agentMat=new THREE.MeshPhongMaterial({color:0x64ffda,emissive:0x64ffda,emissiveIntensity:.3});
-  var hubGeom=new THREE.SphereGeometry(.6,32,32);
-  var hubMat=new THREE.MeshPhongMaterial({color:0x667eea,emissive:0x667eea,emissiveIntensity:.4});
-  
-  var hub=new THREE.Mesh(hubGeom,hubMat);
-  vScene.add(hub);
-  
-  for(var i=0;i<8;i++){
-    var agent=new THREE.Mesh(agentGeom,agentMat);
-    var angle=i*Math.PI*2/8;
-    agent.position.set(Math.cos(angle)*5,Math.sin(angle)*5,0);
-    vScene.add(agent);
-    
-    /* Connection line */
-    var lineGeom=new THREE.BufferGeometry().setFromPoints([hub.position,agent.position]);
-    var lineMat=new THREE.LineBasicMaterial({color:0x667eea,transparent:true,opacity:.4});
-    var line=new THREE.Line(lineGeom,lineMat);
-    vScene.add(line);
+  vRen=new THREE.WebGLRenderer({antialias:true,alpha:true});
+  vRen.setSize(wrap.clientWidth,wrap.clientHeight);
+  vRen.setClearColor(0x0d1b2a,1);
+  wrap.appendChild(vRen.domElement);
+  vCam.position.set(0,3,18);
+  vCam.lookAt(0,0,0);
+
+  /* Central hub */
+  var hubMat2=new THREE.MeshBasicMaterial({color:0x667eea,wireframe:true,transparent:true,opacity:0.5});
+  var hub2=new THREE.Mesh(new THREE.IcosahedronGeometry(1.5,3),hubMat2);
+  vScene.add(hub2);
+
+  /* Agents orbiting */
+  var agentMat2=new THREE.MeshBasicMaterial({color:0x64ffda,transparent:true,opacity:0.7});
+  var vAgents=[];
+  for(var i=0;i<10;i++){
+    var a=new THREE.Mesh(new THREE.SphereGeometry(.3,12,12),agentMat2.clone());
+    var angle=i*Math.PI*2/10;
+    var dist=5+Math.random()*3;
+    a.position.set(Math.cos(angle)*dist,(Math.random()-.5)*3,Math.sin(angle)*dist);
+    a.userData={dist:dist,angle:angle,speed:0.003+Math.random()*0.005,y:a.position.y};
+    vScene.add(a);
+    vAgents.push(a);
+
+    /* Connection to hub */
+    var lineGeo2=new THREE.BufferGeometry().setFromPoints([hub2.position,a.position]);
+    var line2=new THREE.Line(lineGeo2,new THREE.LineBasicMaterial({color:0x667eea,transparent:true,opacity:0.2}));
+    vScene.add(line2);
   }
-  
-  /* Lights */
-  vScene.add(new THREE.AmbientLight(0xffffff,.5));
-  var point=new THREE.PointLight(0x64ffda,1,50);
-  point.position.set(5,5,5);
-  vScene.add(point);
-  
-  var angle=0;
-  function animateViewer(){
-    requestAnimationFrame(animateViewer);
-    angle+=.005;
-    hub.rotation.y=angle;
-    vScene.rotation.y+=.001;
-    vRenderer.render(vScene,vCam);
+
+  /* Inter-agent connections */
+  for(var i=0;i<vAgents.length;i++){
+    for(var j=i+1;j<vAgents.length;j++){
+      if(vAgents[i].position.distanceTo(vAgents[j].position)<7){
+        var lg=new THREE.BufferGeometry().setFromPoints([vAgents[i].position,vAgents[j].position]);
+        var ln=new THREE.Line(lg,new THREE.LineBasicMaterial({color:0x4ecdc4,transparent:true,opacity:0.1}));
+        vScene.add(ln);
+      }
+    }
   }
-  animateViewer();
+
+  function animateV(){
+    requestAnimationFrame(animateV);
+    hub2.rotation.y+=0.005;
+    vAgents.forEach(function(a){
+      a.userData.angle+=a.userData.speed;
+      a.position.x=Math.cos(a.userData.angle)*a.userData.dist;
+      a.position.z=Math.sin(a.userData.angle)*a.userData.dist;
+      a.position.y=a.userData.y+Math.sin(a.userData.angle*3)*0.3;
+    });
+    vScene.rotation.y+=0.001;
+    vRen.render(vScene,vCam);
+  }
+  animateV();
 }
 
-function resetView(){if(vCam)vCam.position.set(0,0,15);}
-function zoomIn(){if(vCam)vCam.position.z-=2;}
-function zoomOut(){if(vCam)vCam.position.z+=2;}
+function resetView(){if(vCam){vCam.position.set(0,3,18);vCam.lookAt(0,0,0);}}
+function zoomIn(){if(vCam)vCam.position.z-=3;}
+function zoomOut(){if(vCam)vCam.position.z+=3;}
 
-/* Left panel items */
+/* Left panel click */
 document.querySelectorAll('.left-item').forEach(function(item){
   item.addEventListener('click',function(){
     document.querySelectorAll('.left-item').forEach(function(i){i.classList.remove('active');});
     item.classList.add('active');
     document.getElementById('infoPanel').classList.add('show');
-    document.getElementById('panelTitle').textContent=item.textContent;
-    document.getElementById('panelBody').innerHTML='<h3>Category: '+item.textContent+'</h3><p>Agents in this category specialize in '+item.textContent.toLowerCase()+' tasks. Click on nodes to explore individual agents and their capabilities.</p><div class="ip-stats"><div class="ip-stat"><div class="v">1,247</div><div class="l">Agents</div></div><div class="ip-stat"><div class="v">89%</div><div class="l">Success Rate</div></div></div>';
+    var cat=item.textContent;
+    document.getElementById('panelTitle').textContent=cat+' Agents';
+    document.getElementById('panelBadge').textContent='Active';
+    document.getElementById('panelBody').innerHTML=
+      '<h3>Category: '+cat+'</h3>'+
+      '<p>Agents specializing in '+cat.toLowerCase()+' tasks. Browse and connect to build multi-agent workflows.</p>'+
+      '<div class="ip-stats">'+
+        '<div class="ip-stat"><div class="v">'+Math.floor(800+Math.random()*2000)+'</div><div class="l">Agents</div></div>'+
+        '<div class="ip-stat"><div class="v">'+(85+Math.floor(Math.random()*14))+'%</div><div class="l">Uptime</div></div>'+
+        '<div class="ip-stat"><div class="v">'+(40+Math.floor(Math.random()*60))+'ms</div><div class="l">Avg Latency</div></div>'+
+        '<div class="ip-stat"><div class="v">'+Math.floor(500+Math.random()*5000)+'</div><div class="l">Connections</div></div>'+
+      '</div>'+
+      '<h3>Top Agents</h3>'+
+      '<p>1. '+cat+'Agent-Pro — 99.2% reliability<br>2. Fast'+cat+'-v2 — lowest latency<br>3. Open'+cat+'-lite — free tier available</p>';
   });
 });
 </script>
